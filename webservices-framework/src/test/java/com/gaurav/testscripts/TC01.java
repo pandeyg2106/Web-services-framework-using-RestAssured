@@ -1,9 +1,10 @@
 package com.gaurav.testscripts;
 
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import com.gaurav.pojoclass.GetCountries;
+import com.gaurav.pojoclasses.GetCountriesResponse;
 import com.gaurav.utils.EndpointURL;
 import com.gaurav.utils.URL;
 import com.gaurav.webservices.methods.Webservices;
@@ -22,18 +23,21 @@ public class TC01 {
 	@Test
 	public void verifyGetCountries(){
 		
+		GetCountriesResponse getCountriesResponse = new GetCountriesResponse();
 		Gson gson = new GsonBuilder().create();
-		GetCountries[] getCountries;
-		String url = URL.fixedurl + EndpointURL.GET_COUNTRIES.getResourcePath();
+
+		String url = URL.fixedurl+EndpointURL.GET_COUNTRIES.getResourcePath();
+		//System.out.println(url);
 		response = Webservices.Get(url);
-		System.out.println(response.getBody().asString());
-		if(response.getStatusCode() == 200){
-			getCountries = gson.fromJson(response.getBody().asString(), GetCountries[].class);
-			for(int i=1;i<=getCountries.length;i++){
-				System.out.println(getCountries[i].getAlpha3Code());
+		System.out.println(response.asString());
+		if(response.getStatusCode()==200){
+			getCountriesResponse = gson.fromJson(response.getBody().asString(), GetCountriesResponse.class);
+			
+			for(int i=0;i<getCountriesResponse.getRestResponse().getResult().size();i++){
+
+				System.out.println(getCountriesResponse.getRestResponse().getResult().get(i).getName());
 			}			
 		}
 			
-	}	
-
+	}
 }

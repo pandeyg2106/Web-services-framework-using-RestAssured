@@ -37,4 +37,5 @@ public class Webservices {
 		Response response = requestspecification.delete(URI);
 		return response;
 	}
+	
 }

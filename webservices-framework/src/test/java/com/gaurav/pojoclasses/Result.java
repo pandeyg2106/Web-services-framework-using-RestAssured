@@ -1,9 +1,9 @@
-package com.gaurav.pojoclass;
+package com.gaurav.pojoclasses;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class GetCountries {
+public class Result {
 
 	@SerializedName("name")
 	@Expose
